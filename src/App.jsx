@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { PricingSection } from '@/components/sections/PricingSection';
-import { PortfolioSection } from '@/components/sections/PortfolioSection';
+import { PortfolioSection } from './components/sections/PortfolioSection';
 import { WhyItWorksSection } from '@/components/sections/WhyItWorksSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { HiringSection } from '@/components/sections/HiringSection';
