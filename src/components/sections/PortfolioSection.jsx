@@ -8,17 +8,17 @@ const portfolioProjects = [
   {
     key: 'portfolio_project_1',
     url: 'https://digitalorto.com/',
-    video: '/textures/projects/dental.mp4',
+    video: '/textures/projects/dentall.mp4',
   },
   {
     key: 'portfolio_project_2',
     url: 'https://resto.dioniscode.com/',
-    video: '/textures/projects/resto.mp4',
+    video: '/textures/projects/restoo.mp4',
   },
   {
     key: 'portfolio_project_3',
     url: 'https://chalets.dioniscode.com/',
-    video: '/textures/projects/autoventas.mp4',
+    video: '/textures/projects/chalet.mp4',
   },
 ];
 
