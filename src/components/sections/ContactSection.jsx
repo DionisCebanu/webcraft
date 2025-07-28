@@ -49,17 +49,24 @@ export function ContactSection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name.trim()) {
-      toast({ title: t('contact_modal_name_required') });
-      return;
-    }
-    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      toast({ title: t('contact_modal_email_invalid') });
-      return;
-    }
-    if (!formData.message.trim()) {
-      toast({ title: t('contact_modal_message_required') });
-      return;
+     const validations = [
+      { field: 'name', condition: !formData.name.trim(), message: 'contact_modal_name_required' },
+      {
+        field: 'email',
+        condition: !formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email),
+        message: 'contact_modal_email_invalid'
+      },
+      { field: 'message', condition: !formData.message.trim(), message: 'contact_modal_message_required' },
+      { field: 'phone', condition: !formData.phone.trim(), message: 'contact_modal_phone_required' },
+      { field: 'projectType', condition: !formData.projectType.trim(), message: 'contact_modal_project_type_required' },
+      { field: 'budget', condition: !formData.budget.trim(), message: 'contact_modal_budget_required' }
+    ];
+
+    for (let rule of validations) {
+      if (rule.condition) {
+        toast({ title: t(rule.message) });
+        return;
+      }
     }
    
     try {
@@ -146,8 +153,8 @@ export function ContactSection() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={t('contact_modal_title')}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input name="name" value={formData.name} onChange={handleInputChange} required placeholder={t('contact_modal_name')} className="bg-background/80" />
-            <Input name="email" type="email" value={formData.email} onChange={handleInputChange} required placeholder={t('contact_modal_email')} className="bg-background/80" />
+            <Input name="name" value={formData.name} onChange={handleInputChange} placeholder={t('contact_modal_name')} className="bg-background/80" />
+            <Input name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder={t('contact_modal_email')} className="bg-background/80" />
           </div>
 
           <Input name="phone" value={formData.phone} onChange={handleInputChange} placeholder={t('contact_modal_phone')} className="bg-background/80" />
@@ -178,7 +185,7 @@ export function ContactSection() {
             </Select>
           </div>
 
-          <Textarea name="message" value={formData.message} onChange={handleInputChange} required placeholder={t('contact_modal_message')} rows={4} className="bg-background/80 resize-none" />
+          <Textarea name="message" value={formData.message} onChange={handleInputChange} placeholder={t('contact_modal_message')} rows={4} className="bg-background/80 resize-none" />
 
 
           <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-4">

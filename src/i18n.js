@@ -120,10 +120,13 @@ const resources = {
 
       contact_toast_success_title: "Message sent successfully",
       contact_toast_success_desc: "Thank you! I will get back to you shortly.",
-
+      //Contact Toast Error
       contact_modal_name_required: "Please enter your name.",
       contact_modal_email_invalid: "Please enter a valid email address.",
-      contact_modal_message_required: "Please enter your message."
+      contact_modal_message_required: "Please enter your message.",
+      contact_modal_phone_required: "Please enter your phone number.",
+      contact_modal_project_type_required: "Please select a project type.",
+      contact_modal_budget_required: "Please select a budget."
     }
   },
   fr: {
@@ -237,6 +240,14 @@ const resources = {
       contact_modal_send: 'Envoyer le Message',
       contact_toast_success_title: 'Demande de devis envoyée ! 🚀',
       contact_toast_success_desc: "Merci de nous avoir contactés ! Dionis vous répondra bientôt.",
+      //Contact Toast Error
+      contact_modal_name_required: "Veuillez entrer votre nom.",
+      contact_modal_email_invalid: "Veuillez entrer une adresse e-mail valide.",
+      contact_modal_message_required: "Veuillez entrer votre message.",
+      contact_modal_phone_required: "Veuillez entrer votre numéro de téléphone.",
+      contact_modal_project_type_required: "Veuillez sélectionner un type de projet.",
+      contact_modal_budget_required: "Veuillez sélectionner un budget."
+
     }
   },
   ro: {
@@ -350,6 +361,13 @@ const resources = {
       contact_modal_send: 'Trimite Mesajul',
       contact_toast_success_title: 'Cerere de ofertă trimisă! 🚀',
       contact_toast_success_desc: "Mulțumim că ne-ai contactat! Dionis îți va răspunde în curând.",
+      //Contact Toast Error
+      contact_modal_name_required: "Vă rugăm să introduceți numele dvs.",
+      contact_modal_email_invalid: "Vă rugăm să introduceți o adresă de e-mail validă.",
+      contact_modal_message_required: "Vă rugăm să introduceți mesajul dvs.",
+      contact_modal_phone_required: "Vă rugăm să introduceți numărul dvs. de telefon.",
+      contact_modal_project_type_required: "Vă rugăm să selectați tipul proiectului.",
+      contact_modal_budget_required: "Vă rugăm să selectați un buget."
     }
   },
   ru: {
@@ -463,6 +481,13 @@ const resources = {
       contact_modal_send: 'Отправить сообщение',
       contact_toast_success_title: 'Запрос на оценку отправлен! 🚀',
       contact_toast_success_desc: "Спасибо за обращение! Дионис скоро с вами свяжется.",
+      //Contact Toast Error
+      contact_modal_name_required: "Пожалуйста, введите ваше имя.",
+      contact_modal_email_invalid: "Пожалуйста, введите действительный адрес электронной почты.",
+      contact_modal_message_required: "Пожалуйста, введите ваше сообщение.",
+      contact_modal_phone_required: "Пожалуйста, введите ваш номер телефона.",
+      contact_modal_project_type_required: "Пожалуйста, выберите тип проекта.",
+      contact_modal_budget_required: "Пожалуйста, выберите бюджет."
     }
   }
 };

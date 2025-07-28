@@ -29,23 +29,51 @@ export function PortfolioSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setIsMobileView(width < 1024 || portfolioProjects.length > 3);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const projects = portfolioProjects.map((p) => ({
     ...p,
     title: t(`${p.key}_title`),
     description: t(`${p.key}_desc`),
     features: t(`${p.key}_features`).split(';'),
   }));
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobileView(width < 1024 || projects.length > 3);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [projects.length]);
+
+  // 👆 Swipe Gesture Support
+  useEffect(() => {
+    let startX = 0;
+    const handleTouchStart = (e) => {
+      startX = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diffX = startX - endX;
+      if (diffX > 50) handleNext();
+      else if (diffX < -50) handlePrev();
+    };
+
+    const slider = document.getElementById('mobile-project-slider');
+    if (slider) {
+      slider.addEventListener('touchstart', handleTouchStart);
+      slider.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      if (slider) {
+        slider.removeEventListener('touchstart', handleTouchStart);
+        slider.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [currentIndex]);
 
   const handlePlayToggle = (key) => {
     const currentVideo = videoRefs.current[key];
@@ -82,17 +110,48 @@ export function PortfolioSection() {
       </SectionTitle>
 
       {isMobileView ? (
-        <div className="flex justify-center items-center gap-6">
-          <Button onClick={handlePrev} variant="ghost">←</Button>
+        <div
+          id="mobile-project-slider"
+          className="flex flex-col items-center gap-6"
+        >
+          
 
-          <ProjectCard project={projects[currentIndex]} videoRefs={videoRefs} activeKey={activeKey} handlePlayToggle={handlePlayToggle} t={t} />
+          <ProjectCard
+            project={projects[currentIndex]}
+            videoRefs={videoRefs}
+            activeKey={activeKey}
+            handlePlayToggle={handlePlayToggle}
+            t={t}
+          />
 
-          <Button onClick={handleNext} variant="ghost">→</Button>
+          <div className="flex justify-between items-center w-full px-4">
+            <Button onClick={handlePrev} variant="ghost" className="text-3xl">←</Button>
+            <Button onClick={handleNext} variant="ghost" className="text-3xl">→</Button>
+          </div>
+
+          {/* 🔘 Pagination Dots */}
+          <div className="flex justify-center mt-4 gap-2">
+            {projects.map((_, index) => (
+              <span
+                key={index}
+                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-primary scale-125' : 'bg-gray-400/50'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
           {projects.map((project) => (
-            <ProjectCard key={project.key} project={project} videoRefs={videoRefs} activeKey={activeKey} handlePlayToggle={handlePlayToggle} t={t} />
+            <ProjectCard
+              key={project.key}
+              project={project}
+              videoRefs={videoRefs}
+              activeKey={activeKey}
+              handlePlayToggle={handlePlayToggle}
+              t={t}
+            />
           ))}
         </div>
       )}
