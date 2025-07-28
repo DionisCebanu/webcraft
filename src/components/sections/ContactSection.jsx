@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Section, SectionTitle } from '@/components/Section';
+import emailjs from '@emailjs/browser';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Modal } from '@/components/Modal';
 
@@ -18,15 +19,59 @@ export function ContactSection() {
   });
   const { toast } = useToast();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Basic validation
+  if (!formData.name.trim()) {
+    toast({ title: t('contact_modal_name_required') });
+    return;
+  }
+  if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    toast({ title: t('contact_modal_email_invalid') });
+    return;
+  }
+  if (!formData.message.trim()) {
+    toast({ title: t('contact_modal_message_required') });
+    return;
+  }
+
+  try {
+    await emailjs.send(
+      'service_ncvuuml',
+      'template_uflpnsc',
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        to_name: 'Dionis',
+        to_email: 'dionis.cebanu003@gmail.com',
+        phone: formData.phone || 'N/A',
+        project_type: formData.projectType || 'N/A',
+        budget: formData.budget || 'N/A',
+        message: formData.message
+      },
+      'Om2GYi17iiz2sWWka'
+    );
+
     toast({
       title: t('contact_toast_success_title'),
       description: t('contact_toast_success_desc'),
     });
-    setFormData({ name: '', email: '', phone: '', projectType: '', budget: '', message: '' });
+
+    setFormData({
+      name: '', email: '', phone: '', projectType: '', budget: '', message: ''
+    });
     setIsModalOpen(false);
-  };
+  } catch (error) {
+    console.error("EmailJS error:", error);
+    toast({
+      title: t('contact_toast_error_title'),
+      description: t('contact_toast_error_desc'),
+      variant: 'destructive',
+    });
+  }
+};
+
   
   const handleInputChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));

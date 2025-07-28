@@ -95,6 +95,7 @@ const resources = {
       contact_title_highlight: 'Build Something Amazing?',
       contact_subtitle: 'Click the glowing power button on the device below to boot up the contact form and send me a message.',
       contact_power_on: 'Click to power on',
+      
       // Contact Modal
       contact_modal_title: "Let's Connect!",
       contact_modal_name: 'Name *',
@@ -114,6 +115,15 @@ const resources = {
       contact_modal_send: 'Send Message',
       contact_toast_success_title: 'Quote Request Sent! 🚀',
       contact_toast_success_desc: "Thanks for reaching out! Dionis will get back to you soon.",
+      contact_toast_error_title: "Error sending message",
+      contact_toast_error_desc: "Something went wrong while sending your message. Please try again later.",
+
+      contact_toast_success_title: "Message sent successfully",
+      contact_toast_success_desc: "Thank you! I will get back to you shortly.",
+
+      contact_modal_name_required: "Please enter your name.",
+      contact_modal_email_invalid: "Please enter a valid email address.",
+      contact_modal_message_required: "Please enter your message."
     }
   },
   fr: {
